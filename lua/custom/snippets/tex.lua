@@ -27,12 +27,25 @@ local ms = ls.multi_snippet
 local k = require('luasnip.nodes.key_indexer').new_key
 
 ls.add_snippets('tex', {
-  s('ternary', {
-    -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
-    i(1, 'cond'),
-    t ' ? ',
-    i(2, 'then'),
-    t ' : ',
-    i(3, 'else'),
-  }),
+  s({ -- Table 1: snippet parameters
+    trig = 'iim',
+    snippetType = 'autosnippet',
+  }, fmta('$<>$<>', { i(1), i(2) }, {})),
+  s(
+    { trig = 'dm', snippetType = 'autosnippet' },
+    fmta(
+      [[
+      \begin{align}
+        <>
+      \end{align}
+      <>
+      ]],
+      { i(1), i(2) }
+    )
+  ),
+  s({ trig = 'ifrac', wordTrig = false, snippetType = 'autosnippet' }, fmta('\\frac{<>}{<>}<>', { i(1), i(2), i(3) })),
+  s({ trig = '^', wordTrig = false, snippetType = 'autosnippet' }, fmta('^{<>}<>', { i(1), i(2) })),
+  s({ trig = '_', wordTrig = false, snippetType = 'autosnippet' }, fmta('_{<>}<>', { i(1), i(2) })),
+  s({ trig = 'idot', wordTrig = false, snippetType = 'autosnippet' }, fmta('\\dot{<>}<>', { i(1), i(2) })),
+  s({ trig = '(', wordTrig = false, snippetType = 'autosnippet' }, fmta('(<>)<>', { i(1), i(2) })),
 })
